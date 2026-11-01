@@ -1,0 +1,117 @@
+.dwasm-app {
+	margin: 0 auto;
+	padding: 1rem;
+	max-width: 60rem;
+	text-align: center;
+	color: rgb(224, 224, 224);
+	background-color: rgb(20, 20, 20);
+	min-height: 100vh;
+	box-sizing: border-box;
+}
+
+.dwasm-noscript {
+	padding: 1rem;
+	text-align: center;
+}
+
+.dwasm-setup {
+	max-width: 28rem;
+	margin: 10vh auto 0;
+	text-align: left;
+}
+
+.dwasm-setup h1 {
+	text-align: center;
+}
+
+.dwasm-setup label {
+	display: block;
+	margin-top: 1rem;
+	font-weight: bold;
+}
+
+.dwasm-setup select,
+.dwasm-setup input[type="file"] {
+	width: 100%;
+	margin-top: 0.25rem;
+}
+
+.dwasm-picked {
+	list-style: none;
+	margin: 0.5rem 0 0;
+	padding: 0;
+	font-family: monospace;
+	font-size: 0.9em;
+}
+
+.dwasm-error {
+	color: rgb(255, 128, 128);
+	font-weight: bold;
+}
+
+.dwasm-note {
+	color: rgb(160, 160, 160);
+	font-size: 0.9em;
+}
+
+#dwasm-start {
+	display: block;
+	margin-top: 1.25rem;
+	width: 100%;
+	padding: 0.5rem;
+	font-size: 1.1em;
+}
+
+#spinner {
+	margin: 10vh auto 0.5em;
+}
+
+.dwasm-spinner {
+	width: 50px;
+	height: 50px;
+	margin: 0 auto;
+	animation: dwasm-rotation 0.8s linear infinite;
+	border: 10px solid rgb(64, 32, 32);
+	border-top-color: rgb(224, 224, 128);
+	border-radius: 100%;
+}
+
+@keyframes dwasm-rotation {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
+
+#status {
+	text-align: center;
+}
+
+#progress {
+	display: block;
+	margin: 0.5em auto;
+}
+
+#output {
+	display: none;
+	font-family: monospace;
+	font-size: 14px;
+	width: calc(100% - 24px);
+	height: calc(100vh - 24px);
+	margin-top: 8px;
+	background-color: inherit;
+	color: rgb(192, 192, 192);
+	border: 1px solid rgb(64, 64, 64);
+	resize: none;
+	outline: none;
+}
+
+/* The canvas must not have a border or padding or the mouse coords break. */
+#canvas {
+	display: none;
+	border: 0 none;
+	background-color: #000;
+	margin: 0 auto;
+}
+
+.dwasm-exit {
+	text-align: center;
+}

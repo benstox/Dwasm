@@ -1,0 +1,66 @@
+name: Nextcloud app
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nextcloud-app-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Lint and unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: PHP lint
+        run: find nextcloud -path nextcloud/vendor -prune -o -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: PHP unit tests
+        working-directory: nextcloud
+        run: |
+          composer install --no-interaction --prefer-dist --no-progress
+          composer run test:unit
+
+      - name: Launcher tests
+        run: node --test nextcloud/tests/js/launcher.test.js
+
+  build:
+    name: Build engine and package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            cmake curl ca-certificates unzip \
+            libsdl2-dev libsdl2-mixer-dev libpng-dev zlib1g-dev
+
+      - name: Install pinned emsdk
+        run: |
+          git clone --depth 1 https://github.com/emscripten-core/emsdk.git "$HOME/emsdk"
+          "$HOME/emsdk/emsdk" install 3.1.74
+          "$HOME/emsdk/emsdk" activate 3.1.74
+
+      - name: Build the app
+        run: |
+          source "$HOME/emsdk/emsdk_env.sh"
+          ./nextcloud/tools/build-app.sh --pack
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: dwasm-nextcloud-app
+          path: dist/dwasm-*.tar.gz
+          if-no-files-found: error

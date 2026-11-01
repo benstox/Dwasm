@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+	<id>dwasm</id>
+	<name>Doom (Dwasm)</name>
+	<summary>Play Doom in the browser, inside Nextcloud</summary>
+	<description>
+		Play single-player Doom from the Nextcloud app menu, with no install and no external server. Freedoom is bundled as the default game, and you can import your own IWAD, PWAD and DeHackEd files from disk. Saves and settings are kept in the browser between visits.
+
+		Dwasm is an unofficial WebAssembly port of PrBoom+ / PrBoomX: Boom and MBF compatibility classes, widescreen and uncapped frame rates. It is not a dsda-doom port and does not support MBF21, UDMF or DSDA-format demos.
+	</description>
+	<version>1.0.0</version>
+	<licence>GPL-2.0-or-later</licence>
+	<author>Dwasm contributors</author>
+	<namespace>Dwasm</namespace>
+	<category>games</category>
+	<dependencies>
+		<nextcloud min-version="30" max-version="34"/>
+	</dependencies>
+	<navigations>
+		<navigation>
+			<id>dwasm</id>
+			<name>Doom (Dwasm)</name>
+			<route>dwasm.page.index</route>
+			<icon>img/app.png</icon>
+			<type>link</type>
+		</navigation>
+	</navigations>
+</info>
